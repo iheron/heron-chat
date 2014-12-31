@@ -10,7 +10,6 @@
       _session[socket.id + ""] = socket;
       socket.on('join', function(data){
         var list, v, ref$, k;
-        console.log(data);
         io.sockets.emit('system', data + " join the room.");
         _session[socket.id + ""].nickName = data;
         list = [];

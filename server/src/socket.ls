@@ -11,7 +11,6 @@ module.exports = (server) ->
     _session."#{socket.id}" = socket
 
     socket.on 'join', (data) ->
-      console.log data
       io.sockets.emit 'system', "#{data} join the room."
       _session."#{socket.id}".nickName = data
       list = []
