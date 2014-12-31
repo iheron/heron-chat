@@ -1,0 +1,57 @@
+<script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
+<script src="/javascripts/jquery-2.1.1.min.js"></script>
+<style>
+    #message span  {line-height: 20px;}
+</style>
+<input type="text" id="nickName" placeholder="NickName"/> <input id="sub" type="button" value="Submit"/>
+<hr/>
+<span id="nick"></span> send 
+<select id="onlineUser">
+    <option value="0">all</option>
+</select>: <input type="text" id="message"/><input id="send" type="button" value="Send"/>
+<div id="messageList"></div>
+<script>
+    var socket = io.connect('ws://localhost:4000');
+    socket.on('connect',function(){
+        console.log('connection success.');
+    });
+    socket.on('system', function (msg) {
+        console.log(msg);
+        showMsg(msg);
+    });
+    socket.on('message', function (data) {
+        showMsg(data.from + '@' + (data.to || 'all') + ': ' + data.message);
+    });
+    socket.on('join', function (data) {
+        console.log(data);
+        $('#onlineUser option').remove();
+        $('#onlineUser').append('<option value="0">all</option>');
+        for (var i = 0, len = data.length; i < len; i++) {
+            var obj = data[i];
+            $('#onlineUser').append('<option value="'+obj.id+'">'+(obj.nick || obj.id)+'</option>');
+        }
+    });
+
+    $('#nick').text(socket.id);
+    $('#sub').click(function () {
+        var nick = $('#nickName').val();
+        $('#nick').text(nick);
+        socket.emit('join', nick);
+    });
+    $('#send').click(function () {
+        var id = $('#onlineUser').val();
+        var data = {};
+        data.to = id;
+        data.message = $('#message').val();
+       socket.send(data);
+    });
+
+
+    var showMsg = function (data) {
+        $('#messageList').append('<div><span>'+data+'</span></div>');
+    }
+
+
+
+
+</script>

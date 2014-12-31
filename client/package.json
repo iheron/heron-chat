@@ -1,0 +1,20 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node --harmony ./bin/start"
+  },
+  "dependencies": {
+    "co": "*",
+    "co-body": "*",
+    "co-views": "*",
+    "heron-mvc": "*",
+    "hogan.js": "*",
+    "koa": "*",
+    "koa-mount": "*",
+    "koa-router": "*",
+    "koa-static": "*",
+    "lodash": "*"
+  }
+}
