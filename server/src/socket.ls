@@ -26,14 +26,14 @@ module.exports = (server) ->
       obj = {}
       obj.from = socket.nickName || socket.id
       obj.message = data.message
-      if to
-        to = _session."#{data.to}"
-      else
-        to = ''
-      obj.to = to.nickName || to.id
+
+      to = _session."#{data.to}"
+
       if !to
+        obj.to = ''
         io.sockets.send obj
       else
+        obj.to = to.nickName || to.id
         socket.send obj
         to.send obj
 
