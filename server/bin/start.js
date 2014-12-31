@@ -3,7 +3,7 @@
   var app, socket, port, server;
   app = require('../lib/app');
   socket = require('../lib/socket');
-  port = 4000;
+  port = process.env.VCAP_APP_PORT || 4000;
   server = app.listen(port, function(){
     console.log("server listening on port " + server.address().port);
     socket(server);
