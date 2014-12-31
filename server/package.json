@@ -6,7 +6,8 @@
     "start": "node --harmony ./bin/start"
   },
   "dependencies": {
-    "koa": "*",
-    "scket.io": "*"
+    "express": "*",
+    "hogan-express": "*",
+    "socket.io": "*"
   }
 }

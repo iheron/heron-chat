@@ -1,4 +1,6 @@
 require! '../src/app'
 require! '../src/socket'
 port = 4000
-socket port
+server = app.listen port, !->
+  console.log "server listening on port #{server.address().port}"
+  socket server
